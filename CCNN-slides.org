@@ -117,9 +117,37 @@ $$ \frac{\sum_{poo}}{\sum_{poo}^{bah}} \phi = \Omega $$
 - [balazs] describes two categories for constructive methods:
   - evolutionary methods (what is mostly done at Brock)
   - other methods exemplified by Cascade Correlation 
+  - describes overall field.
 ** Kwok, Yeung 1995 
 
 ** Kwok, Yeung 1997
+
+** Sharma et al  
+The adaptive structure neural networks framework is a collection of a group of techniques in which network structure is adapted during the training according to a given problem. The network structure adaptation may be applicable to three levels namely, architecture adaptation, functional adaptation and training parameters adaptation. These approaches can be classified into two different groups: evolutionary and non-evolutionary.
+
+Many evolutionary algorithms have been proposed that evolve the network architecture together with weights based on global optimization techniques, like genetic algorithms, genetic programming and evolutionary strategies [3], [4]. The global search methods like ant colony optimization and particle swarm optimization are widely used nowadays to determine optimum architecture during the learning [5], [6]. However, the evolutionary approach is quite demanding in both time and user–defined parameters [7].
+
+*** Six motivations for using constructive algorithms are listed with explanations in [Parekh et al., 2000]. These are:
+
+(1) Flexibility of exploring the space of neural network topologies
+(2) Potential for matching the intrinsic complexity of the learning task
+(3) Estimation of expected case complexity of the learning task
+(4) Tradeoffs among performance measures
+(5) Incorporation of prior knowledge
+(6) Lifelong learning.
+
+*** Constructive algorithms have the following major advantages over the pruning algorithms:
+
+(1) It is relatively easier to specify an initial network architecture in constructive algorithms, whereas in pruning algorithms one usually does not know a priori how large the initial network should be. Therefore, an initial network that is much larger than actually required by the underlying problem is usually chosen in pruning algorithms, leading to a computational expensive network training process.
+
+(2) Constructive algorithms tend to build small networks due to their incremental learning nature. Networks are constructed that correspond to the complexity of the given problem, while overly large efforts may be spent in pruning the redundant weights and hidden nodes contained in the network in pruning algorithms. Thus, constructive algorithms are generally more economical (in terms of training time and network complexity/structure) than pruning algorithms.
+
+(3) In constructive algorithms, a smaller number of parameters (weights) is to be updated in the initial stage of the training process thus requiring less training data for good generalization, while a sufficiently large training data is required in pruning algorithms.
+
+(4) One common feature in constructive algorithms is to assume that the hidden nodes already installed in the network are useful in modeling part of the underlying function. In such case, the weights feeding into these installed nodes can be frozen to avoid moving target problem. The number of weights to be optimized at a time is reduced, so that time and memory requirements are decreased.
+
+(5) In pruning algorithms and regularization methods, several problem dependant parameters need to be properly specified or selected in order to obtain an acceptable network yielding satisfactory performance. This requirement makes these algorithms more difficult to be used in real life applications.
+
 ** Khatter et al  
 constructive methods:
 Further, it has been shown that at least in principle, algorithms that are allowed to add neurons and weights represent a class of universal learners [37]. Constructive algorithms search for small solutions first and thus offer a potential for discovering a near minimal network that suitably matches the complexity of the learning task. Smaller networks are also preferred because of their potential for more efficient hardware implementation and greater transparency in extracting the learned knowledge [38].
@@ -155,11 +183,8 @@ http://eds.a.ebscohost.com/eds/results?sid=57f339d7-ad15-47dd-95a8-ce7523f72217%
 
 ** book 
 In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm (CasCor) and maybe the second most popular is the DNC. While the DNC algorithm constructs neural networks with a single hidden layer, the CasCor creates them with multiple hidden layers, where each hidden layer has one hidden neuron. The popularity of CasCor can be attested by the various ways this algorithm has inspired new variations and also has been used in the combined approaches between learning methods. p15.
-** constructive algo's paper  
-- describes overall field.
-- describes evo techniques as a broad category different from CCAs
 ** other 
-*** other slides 
+*** other slides :ARCHIVE:
 - input units code the problem being presented to the network
 - output units code the network's response to the input problem
 *** shultz slides
@@ -173,12 +198,7 @@ In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most
 - PCC pruned CCNN 
 - RCC recurrent CCNN
 ** things to say
-- why did CCann fall out? what happened since inception?
-- current uses
 - for practical uses, would like pictures of the headings of papers to show what some researches have to say
-- 2 main problems of backprop :
-  - step size problem
-  - moving target problem
 - original paper acknowledges vanishing gradient problem
 - original paper citation count 3716
 - creates it's own topology starting with minimal network
@@ -229,33 +249,17 @@ In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most
 - One way to combat: allow only a few weights to change while keeping the others constant
 
 ** Pros & Cons
-- at elast 10 times faster than standard backpropagation
+Pros
+- At elast 10 times faster than standard backpropagation
   - [insert charts]
 - The network determines its own size and topologies
-- incremental learning: new training, new information can be added, with an already trained network
-
-* breakdown of the math - large part, pics & math
-- use images with equations.
-- legends 
+- Incremental/life long learning: new training, new information can be added, with an already trained network
+  
+Cons
+- Even more susceptible to overfitting
 * understand algorithms and why they work
   - " Pros/Cons of each
 * Comparison to vanilla backpropogation
-** Calculating Correlation
-S is sum over all output units $\mathit{o}$ of correlation with error
-
-\begin{columns}[t]
-  \begin{column}
-    \begin{equation}
-      S = \sum_{o} \lvert \sum_{p} (V_{p} - V) (E_{p,o} - E_{o}) \rvert 
-    \end{equation}
-  \end{column}
-  # \begin{column}
-  #   \begin{equation}
-  #     \frac{\delta S}{\delta w_{i}} = \sum_{p,o} \sigma_{o}(E_{p,o} - \overline{E_{o}}) \mathit{f_{p}}^{\prime} I_{i,p}
-  #   \end{equation}
-  # \end{column}
-\end{columns}
-
 * practical applications
 - have seen at least 1 application(s) of the learning algorithms
 - [Kwok & Yeung] CCNN used more than other ANNs in regression
