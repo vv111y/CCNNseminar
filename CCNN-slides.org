@@ -1,0 +1,263 @@
+* header :ARCHIVE:
+#+startup: beamer
+#+OPTIONS: H:2 toc:t num:t
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [presentation]
+#+BEAMER_THEME: Bergen
+#+DESCRIPTION: Introduction to Cascade Correlation Neural Networks <2017-02-02 Thu> 
+#+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col) %8BEAMER_OPT
+#+LATEX_HEADER: \usepackage{multimedia}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{mathtools}
+
+#+TITLE: Introduction to Cascade Correlation Neural Networks 
+#+AUTHOR: Willy Rempel
+#+DATE: February 2, 2017
+
+* [.] 4P80 seminar [2/10]
+SCHEDULED: <2017-01-20 Fri> DEADLINE: <2017-02-02 Thu>
+** [.] pics of growing network
+** [.] pic of category tree of different algos
+** [.] pic headlines
+** [.] activation fn
+** [.] split slides for equations with legend
+*** [.] select equations
+*** [.] latex of all the major equations
+*** [.] make legend
+** [.] charts, papers, info on performance, pros/cons
+** [?] maybe list of alternative algos based on CCNN
+** [?] couple papers have stepwise description - maybe use for pseudocode
+** Requirements
+- theoritcal background
+- comparison to vanilla backprop
+- practical applications
+After completion of your presentation students should:
+- have a brief historical context into which the algorithms belong
+- understand algos, and why they work 
+- " Pros/Cons of each
+- " Differences between backprop
+- have seen some experimental results to support the above 3 things
+- have seen at least 1 application(s) of the learning algorithms
+** mod Requirements
+- theoritcal background
+  - have a brief historical context into which the algorithms belong
+- comparison to vanilla backprop
+  - " Differences between backprop
+- understand algorithms and why they work
+  - " Pros/Cons of each
+- have seen some experimental results to support: explanation, pro/cons, diff btw 
+- practical applications
+  - have seen at least 1 application(s) of the learning algorithms
+** :ARCHIVE: 
+*** options 
+- Delta-bar-delta and extended delta-bar-delta or
+- Conjugate gradient and at least one variant (ie. Fletcher-Reeves, Polak-Ribiere, Powell Beale Restarts, Scaled Conjugate Gradient)
+- Cascade-Correlation
+-
+* snips
+** latex snips
+$$ \frac{\sum_{poo}}{\sum_{poo}^{bah}} \phi = \Omega $$
+
+#+LATEX_HEADER: \usepackage{mathtools}
+  S = \sum_{o} \sum_{p} \left V_{p} - V \right \left E_{p,o} - E_{o} \right
+
+** snip from Adam 
+\begin{frame}{Network Representation}
+\begin{columns}
+    \begin{column}{.45\textwidth}
+      \begin{figure}
+          \centering
+           \textbf{Undirected Graph}\par\medskip
+           \includegraphics[width=0.7\textwidth]{Undirected-Graph.png}
+            \\~\\
+          \begin{blockarray}{ccccc}
+            & 1 & 2 & 3 & 4 \\
+            \begin{block}{c(cccc)}
+              1 & 0 & 1 & 1 & 1  \\
+              2 & 1 & 0 & 0 & 0  \\
+              3 & 1 & 0 & 0 & 0  \\
+              4 & 1 & 0 & 0 & 0  \\
+            \end{block}
+          \end{blockarray}
+      \end{figure}
+    \end{column}
+    \begin{column}{.45\textwidth}
+     \begin{figure}
+          \centering
+           \textbf{Directed Graph}\par\medskip
+           \includegraphics[width=0.7\textwidth]{Directed-Graph.png}
+            \\~\\
+          \begin{blockarray}{ccccc}
+            & 1 & 2 & 3 & 4 \\
+            \begin{block}{c(cccc)}
+              1 & 0 & 1 & 0 & 1  \\
+              2 & 0 & 0 & 0 & 0  \\
+              3 & 1 & 0 & 0 & 0  \\
+              4 & 0 & 0 & 0 & 0  \\
+            \end{block}
+          \end{blockarray}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+** scrap area 
+
+*** input training legend
+| $\mathit{o}$       | network output at which the error is measured   |
+| \rho               | the training pattern                            |
+| \sigma             | network output                                  |
+| V_{p}              | candidate output for input pattern \rho         |
+| E_{p,o}            | network output error for output o, pattern \rho |
+| $\overline{V}$     | average of candidate output over all patterns   |
+| $\overline{E_{o}}$ | average of output errors over all patterns      |
+
+*** output training legend 
+* research 
+- [balazs] describes two categories for constructive methods:
+  - evolutionary methods (what is mostly done at Brock)
+  - other methods exemplified by Cascade Correlation 
+** Kwok, Yeung 1995 
+
+** Kwok, Yeung 1997
+** Khatter et al  
+constructive methods:
+Further, it has been shown that at least in principle, algorithms that are allowed to add neurons and weights represent a class of universal learners [37]. Constructive algorithms search for small solutions first and thus offer a potential for discovering a near minimal network that suitably matches the complexity of the learning task. Smaller networks are also preferred because of their potential for more efficient hardware implementation and greater transparency in extracting the learned knowledge [38].
+
+constructive methods2:
+Many constructive neural network algorithms have been surveyed by many authors but the most popular out of them is Cascade Correlation algorithm [43].
+
+Cascade Correlation NN Cascade correlation is a powerful method of training neural networks. Cascade Correlation starts with a minimal network in which new hidden units are trained and added one by one. Cascade-Correlation consists of two steps. Cascade architecture is the first step in which hidden units are added one at a time to the network. They do not change after they are added. Learning algorithm is the second step in which new hidden units are created and installed. We try to maximize the magnitude of correlation between the new unit output and residual error signal [44].
+
+In this there are some inputs and one or more output units with no hidden units. Each input unit is connected to each output unit with a connection whose weight can be adjusted. Bias input is set to 1 permanently. Hidden units are added one by one to the network and each unit receives a connection from original inputs of the network and also from pre-existing hidden unit. When the units are added to the network, the weights of hidden units are frozen .Output units are repeatedly trained. A new one unit layer is added to the network when new unit is added. This is done until some of the incoming weights are zero. In a single layer network we can use Delta rule or Windrow- hoff with no need to back propogate through hidden units. Quickprop algorithm can be used to train output weights. New hidden unit is added to the network and the input weights are frozen and the output weights are frozen and all the output weights are trained once. This is repeated until error is small.Whenthe weights in the output layer are trained the other weights in the active network are frozen. When the candidate weights are trained none of the weights in the active network are changed. In a machine with plenty of memory, it is possible to record the unit-values and the output errors for an entire epoch, and then to use these cached values repeatedly during training, rather than recomputing them for each training case. This can result in a tremendous speedup, especially for large networks.
+*** variants
+- Recurrent CBP
+- Casper
+- Adaptive slope sigmoidal function
+
+** SE post  
+http://math.stackexchange.com/questions/2057027/cascade-neural-networks
+One disadvantage is that it is much harder to implement than a standard multilayer Perceptron. Another disadvantage is that this is for "standard" feed forward networks, but not for CNNs / RNNs.
+
+One architecture which is closely related to the cascade part and is for CNNs are the recently developed Dense Nets: https://arxiv.org/abs/1608.06993
+
+I am pretty sure DenseNets will be wide-spread quite soon
+** small tutorial 
+http://www.cs.cornell.edu/boom/2004sp/projectarch/appofneuralnetworkcrystallography/NeuralNetworkCascadeCorrelation.htm
+mentions 8 candidate neurons typical.small
+** brock 
+more results: 1,043, 841 scholarly, 84 in title
+http://eds.a.ebscohost.com/eds/results?sid=57f339d7-ad15-47dd-95a8-ce7523f72217%40sessionmgr4006&vid=0&hid=4108&bquery=(cascade+AND+correlation+AND+network)&bdata=JnR5cGU9MCZzaXRlPWVkcy1saXZlJnNjb3BlPXNpdGU%3d
+
+* presentation 
+* rough notes
+- doesn't require backprop? https://en.wikipedia.org/wiki/Types_of_artificial_neural_networks#Cascading_neural_networks
+
+** book 
+In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm (CasCor) and maybe the second most popular is the DNC. While the DNC algorithm constructs neural networks with a single hidden layer, the CasCor creates them with multiple hidden layers, where each hidden layer has one hidden neuron. The popularity of CasCor can be attested by the various ways this algorithm has inspired new variations and also has been used in the combined approaches between learning methods. p15.
+** constructive algo's paper  
+- describes overall field.
+- describes evo techniques as a broad category different from CCAs
+** other 
+*** other slides 
+- input units code the problem being presented to the network
+- output units code the network's response to the input problem
+*** shultz slides
+- 'when error stagnates a hidden unit is recruited'
+- correlation slide shows normalizing denominator. Not in original paper.
+- states same quickprop algo used for both correlation maximization and error minimization
+- the added randomized output weights are opposite sign of neurons correlation with network error --true?
+  - confirmed in http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html tutorial
+- aside: he has 2nd tutorial on encoder option for CCNNs. Later.
+*** types of CCNNs 
+- PCC pruned CCNN 
+- RCC recurrent CCNN
+** things to say
+- why did CCann fall out? what happened since inception?
+- current uses
+- for practical uses, would like pictures of the headings of papers to show what some researches have to say
+- 2 main problems of backprop :
+  - step size problem
+  - moving target problem
+- original paper acknowledges vanishing gradient problem
+- original paper citation count 3716
+- creates it's own topology starting with minimal network
+  - input and output layers only, as usual connected by weights.
+- opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
+  - in a class called Dynamic Node Creation, DNC ... change this
+- a 'multi layered perceptron'
+- S Fahlman did RCC - recurrent CCNN same year '90
+* Theoretical Background
+** 1st slide 
+- also have a brief historical context into which the algorithms belong
+- have seen some experimental results to support the above 3 things
+** CCNN in a nutshell 
+- Feed-forward, supervised learning
+- Does use backpropagation algorithms
+- coNN constructive neural network
+  - 2 main categories:
+    - evolutionary based (what is done at Brock)
+    - general constructive. CCNN is main exemplar of this group
+- Instead of a minimum, we find a maximum: the maximum correlation between the candidate output and the residual error of the network output.
+*** Cascade ... adding neuron
+- A new hidden neuron is added at one time
+**** Step 1 Training input weights
+   1. Inputs are connected, but not outputs
+   2. One epoch of the training data is run through 
+   3. 
+   4. 
+     
+
+- correlation sign doesn't matter
+- candidate with highest correlation is put in the network, others are discarded.
+- subsequent hidden neurons are attached to previous hidden neurons - this is where the cascade term comes from.
+**** Step 2 Training output weights 
+** Two Problems with Backpropagation
+[original paper]
+*** The Step Size Problem
+- vanilla backpropagation requires small steps for convergence - slow
+- we do not have the information to pick an optimal learning rate, manually selected
+*** The Moving Target Problem
+- complication when many factors changing at the same time
+- error signal defines problem unit trying to solve, but this keeps changing
+- dramatic slowdown of training with increasing number of hidden layers
+- herd effect:
+  - 2 tasks A, B. If A has bigger effect, all nodes redundantly train for A, ignoring B
+  - But when all nodes move toward B at once, problem A response becomes worse.
+  - eventually nodes split to train for separate problems A and B, but it takes a long time
+  - a randomly initialized network prevents nodes from behaving identically, but this tends to dissipate as the network is trained
+- One way to combat: allow only a few weights to change while keeping the others constant
+
+** Pros & Cons
+- at elast 10 times faster than standard backpropagation
+  - [insert charts]
+- The network determines its own size and topologies
+- incremental learning: new training, new information can be added, with an already trained network
+
+* breakdown of the math - large part, pics & math
+- use images with equations.
+- legends 
+* understand algorithms and why they work
+  - " Pros/Cons of each
+* Comparison to vanilla backpropogation
+** Calculating Correlation
+S is sum over all output units $\mathit{o}$ of correlation with error
+
+\begin{columns}[t]
+  \begin{column}
+    \begin{equation}
+      S = \sum_{o} \lvert \sum_{p} (V_{p} - V) (E_{p,o} - E_{o}) \rvert 
+    \end{equation}
+  \end{column}
+  # \begin{column}
+  #   \begin{equation}
+  #     \frac{\delta S}{\delta w_{i}} = \sum_{p,o} \sigma_{o}(E_{p,o} - \overline{E_{o}}) \mathit{f_{p}}^{\prime} I_{i,p}
+  #   \end{equation}
+  # \end{column}
+\end{columns}
+
+* practical applications
+- have seen at least 1 application(s) of the learning algorithms
+- [Kwok & Yeung] CCNN used more than other ANNs in regression
+* chart: publications by year
+[[file:CCNN-publication-history-chart.png]]
