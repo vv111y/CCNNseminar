@@ -43,7 +43,7 @@
 		\begin{column}{0.5\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[scale=0.1\textwidth]{trainInputunit.png}
+        \includegraphics[scale=0.3]{trainInputunit.png}
         \caption{image}
       \end{figure}			
 		\end{column}
@@ -52,7 +52,7 @@
 
 
 \begin{frame}
-  \frametitle{Train input weight - correlation}
+  \frametitle{Train input weights - correlation}
 	\begin{columns}[t]
 		\begin{column}{0.5\textwidth}
       $$ \frac{\delta S}{\delta w_{i}} = \sum_{p,o} \sigma_{o}(E_{p,o} - \overline{E_{o}}) \mathit{f_{p}}^{\prime} I_{i,p} $$
@@ -70,7 +70,7 @@
 		\begin{column}{0.5\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{Diagram1.png}
+        \includegraphics[scale=0.5]{trainInputunit.png}
         \caption{image}
       \end{figure}			
 		\end{column}
@@ -86,63 +86,60 @@
 \end{itemize}
 
 \begin{frame}[label={sec:orgc434aa2}]{book}
-  In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm (CasCor) and maybe the second most popular is the DNC. While the DNC algorithm constructs neural networks with a single hidden layer, the CasCor creates them with multiple hidden layers, where each hidden layer has one hidden neuron. The popularity of CasCor can be attested by the various ways this algorithm has inspired new variations and also has been used in the combined approaches between learning methods. p15.
-\end{frame}
-\begin{frame}[label={sec:org52ba181}]{constructive algo's paper}
-\begin{itemize}
-\item describes overall field.
-\item describes evo techniques as a broad category different from CCAs
-\end{itemize}
+  In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm and maybe the second most popular is the DNC...
+  The popularity of Cascade Correlation can be attested by the various ways this
+  algorithm has inspired new variations and also has been used in the combined
+  approaches between learning methods. [Franco et al, 2009] 
 \end{frame}
 \begin{frame}[label={sec:org558d821}]{other}
-\begin{block}{other slides}
-\begin{itemize}
-\item input units code the problem being presented to the network
-\item output units code the network's response to the input problem
-\end{itemize}
-\end{block}
-\begin{block}{shultz slides}
-\begin{itemize}
-\item 'when error stagnates a hidden unit is recruited'
-\item correlation slide shows normalizing denominator. Not in original paper.
-\item states same quickprop algo used for both correlation maximization and error minimization
-\item the added randomized output weights are opposite sign of neurons correlation with network error --true?
-\begin{itemize}
-\item confirmed in \url{http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html} tutorial
-\end{itemize}
-\item aside: he has 2nd tutorial on encoder option for CCNNs. Later.
-\end{itemize}
-\end{block}
-\begin{block}{types of CCNNs}
-\begin{itemize}
-\item PCC pruned CCNN
-\item RCC recurrent CCNN
-\end{itemize}
-\end{block}
+  \begin{block}{other slides}
+    \begin{itemize}
+    \item input units code the problem being presented to the network
+    \item output units code the network's response to the input problem
+    \end{itemize}
+  \end{block}
+  \begin{block}{shultz slides}
+    \begin{itemize}
+    \item 'when error stagnates a hidden unit is recruited'
+    \item correlation slide shows normalizing denominator. Not in original paper.
+    \item states same quickprop algo used for both correlation maximization and error minimization
+    \item the added randomized output weights are opposite sign of neurons correlation with network error --true?
+    \begin{itemize}
+    \item confirmed in \url{http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html} tutorial
+    \end{itemize}
+    \item aside: he has 2nd tutorial on encoder option for CCNNs. Later.
+    \end{itemize}
+  \end{block}
+  \begin{block}{types of CCNNs}
+    \begin{itemize}
+    \item PCC pruned CCNN
+    \item RCC recurrent CCNN
+    \end{itemize}
+  \end{block}
 \end{frame}
 \begin{frame}[label={sec:orgdf727b8}]{things to say}
-\begin{itemize}
-\item why did CCann fall out? what happened since inception?
-\item current uses
-\item for practical uses, would like pictures of the headings of papers to show what some researches have to say
-\item 2 main problems of backprop :
-\begin{itemize}
-\item step size problem
-\item moving target problem
-\end{itemize}
-\item original paper acknowledges vanishing gradient problem
-\item original paper citation count 3716
-\item creates it's own topology starting with minimal network
-\begin{itemize}
-\item input and output layers only, as usual connected by weights.
-\end{itemize}
-\item opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
-\begin{itemize}
-\item in a class called Dynamic Node Creation, DNC \ldots{} change this
-\end{itemize}
-\item a 'multi layered perceptron'
-\item S Fahlman did RCC - recurrent CCNN same year '90
-\end{itemize}
+  \begin{itemize}
+  \item why did CCann fall out? what happened since inception?
+  \item current uses
+  \item for practical uses, would like pictures of the headings of papers to show what some researches have to say
+  \item 2 main problems of backprop :
+  \begin{itemize}
+  \item step size problem
+  \item moving target problem
+  \end{itemize}
+  \item original paper acknowledges vanishing gradient problem
+  \item original paper citation count 3716
+  \item creates it's own topology starting with minimal network
+  \begin{itemize}
+  \item input and output layers only, as usual connected by weights.
+  \end{itemize}
+  \item opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
+  \begin{itemize}
+  \item in a class called Dynamic Node Creation, DNC \ldots{} change this
+  \end{itemize}
+  \item a 'multi layered perceptron'
+  \item S Fahlman did RCC - recurrent CCNN same year '90
+  \end{itemize}
 \end{frame}
 
   % \nocite{*}

@@ -14,17 +14,13 @@
 #+AUTHOR: Willy Rempel
 #+DATE: February 2, 2017
 
-* [.] 4P80 seminar [2/10]
+* [.] 4P80 seminar [0/6]
 SCHEDULED: <2017-01-20 Fri> DEADLINE: <2017-02-02 Thu>
+** [.] organize 2 textblob slides
 ** [.] pics of growing network
-** [.] pic of category tree of different algos
 ** [.] pic headlines
-** [.] activation fn
 ** [.] split slides for equations with legend
-*** [.] select equations
-*** [.] latex of all the major equations
 *** [.] make legend
-** [.] charts, papers, info on performance, pros/cons
 ** [?] maybe list of alternative algos based on CCNN
 ** [?] couple papers have stepwise description - maybe use for pseudocode
 ** Requirements
@@ -118,10 +114,11 @@ $$ \frac{\sum_{poo}}{\sum_{poo}^{bah}} \phi = \Omega $$
   - evolutionary methods (what is mostly done at Brock)
   - other methods exemplified by Cascade Correlation 
   - describes overall field.
+- S Fahlman did RCC - recurrent CCNN same year '90
 ** Kwok, Yeung 1995 
-
+empty
 ** Kwok, Yeung 1997
-
+empty
 ** Sharma et al  
 The adaptive structure neural networks framework is a collection of a group of techniques in which network structure is adapted during the training according to a given problem. The network structure adaptation may be applicable to three levels namely, architecture adaptation, functional adaptation and training parameters adaptation. These approaches can be classified into two different groups: evolutionary and non-evolutionary.
 
@@ -162,6 +159,8 @@ In this there are some inputs and one or more output units with no hidden units.
 - Recurrent CBP
 - Casper
 - Adaptive slope sigmoidal function
+** book 
+In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm (CasCor) and maybe the second most popular is the DNC. While the DNC algorithm constructs neural networks with a single hidden layer, the CasCor creates them with multiple hidden layers, where each hidden layer has one hidden neuron. The popularity of CasCor can be attested by the various ways this algorithm has inspired new variations and also has been used in the combined approaches between learning methods. p15.
 
 ** SE post  
 http://math.stackexchange.com/questions/2057027/cascade-neural-networks
@@ -176,13 +175,6 @@ mentions 8 candidate neurons typical.small
 ** brock 
 more results: 1,043, 841 scholarly, 84 in title
 http://eds.a.ebscohost.com/eds/results?sid=57f339d7-ad15-47dd-95a8-ce7523f72217%40sessionmgr4006&vid=0&hid=4108&bquery=(cascade+AND+correlation+AND+network)&bdata=JnR5cGU9MCZzaXRlPWVkcy1saXZlJnNjb3BlPXNpdGU%3d
-
-* presentation 
-* rough notes
-- doesn't require backprop? https://en.wikipedia.org/wiki/Types_of_artificial_neural_networks#Cascading_neural_networks
-
-** book 
-In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm (CasCor) and maybe the second most popular is the DNC. While the DNC algorithm constructs neural networks with a single hidden layer, the CasCor creates them with multiple hidden layers, where each hidden layer has one hidden neuron. The popularity of CasCor can be attested by the various ways this algorithm has inspired new variations and also has been used in the combined approaches between learning methods. p15.
 ** other 
 *** other slides :ARCHIVE:
 - input units code the problem being presented to the network
@@ -197,43 +189,51 @@ In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most
 *** types of CCNNs 
 - PCC pruned CCNN 
 - RCC recurrent CCNN
-** things to say
+** chart: publications by year
+[[file:CCNN-publication-history-chart.png]]
+* things to say
 - for practical uses, would like pictures of the headings of papers to show what some researches have to say
 - original paper acknowledges vanishing gradient problem
 - original paper citation count 3716
 - creates it's own topology starting with minimal network
   - input and output layers only, as usual connected by weights.
 - opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
-  - in a class called Dynamic Node Creation, DNC ... change this
-- a 'multi layered perceptron'
-- S Fahlman did RCC - recurrent CCNN same year '90
+
 * Theoretical Background
-** 1st slide 
-- also have a brief historical context into which the algorithms belong
-- have seen some experimental results to support the above 3 things
 ** CCNN in a nutshell 
 - Feed-forward, supervised learning
-- Does use backpropagation algorithms
-- coNN constructive neural network
+- Uses backpropagation algorithms
+- coNN, constructive neural network
   - 2 main categories:
     - evolutionary based (what is done at Brock)
-    - general constructive. CCNN is main exemplar of this group
-- Instead of a minimum, we find a maximum: the maximum correlation between the candidate output and the residual error of the network output.
-*** Cascade ... adding neuron
-- A new hidden neuron is added at one time
-**** Step 1 Training input weights
-   1. Inputs are connected, but not outputs
-   2. One epoch of the training data is run through 
-   3. 
-   4. 
-     
+    - generally constructive. CCNN is main exemplar of this group
+** Basic Algorithm  
+*** Step 1 Training input weights
+A new hidden neuron is added at one time
+Instead of a minimum, we find a maximum: the maximum correlation between the candidate output and the residual error of the networks output.
 
-- correlation sign doesn't matter
-- candidate with highest correlation is put in the network, others are discarded.
+ 
+1. generate a population of candidate nodes with randomized input weights 
+2. inputs are connected, but not outputs
+3. repeat training steps until no correlation improvement
+   1. one epoch of the training data is run through 
+   2. update input weights using any learning rule
+4. candidate with highest correlation is put in the network, others are discarded.
+
+
+- correlation sign doesn't matter, only magnitude
+- the bias unit effectively implements a learnable resting activation level for each hidden and output unit.
 - subsequent hidden neurons are attached to previous hidden neurons - this is where the cascade term comes from.
-**** Step 2 Training output weights 
+*** Step 2 Training output weights 
+1. connect output of new node to output layer nodes
+   use randomized weights that have adjusted sign to reduce error 
+2. input weights are fixed
+3. only output weights are trained using any learning rule, until no improvement in error reduction
+
+
+- once done the new node is fixed perminently.
+- any new training involves adding another new node on it's own downstream layer
 ** Two Problems with Backpropagation
-[original paper]
 *** The Step Size Problem
 - vanilla backpropagation requires small steps for convergence - slow
 - we do not have the information to pick an optimal learning rate, manually selected
@@ -247,21 +247,13 @@ In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most
   - eventually nodes split to train for separate problems A and B, but it takes a long time
   - a randomly initialized network prevents nodes from behaving identically, but this tends to dissipate as the network is trained
 - One way to combat: allow only a few weights to change while keeping the others constant
-
 ** Pros & Cons
 Pros
 - At elast 10 times faster than standard backpropagation
-  - [insert charts]
+  - [performanceChart2.png]
 - The network determines its own size and topologies
 - Incremental/life long learning: new training, new information can be added, with an already trained network
+- effectively deals with the step size and moving target problems
   
 Cons
-- Even more susceptible to overfitting
-* understand algorithms and why they work
-  - " Pros/Cons of each
-* Comparison to vanilla backpropogation
-* practical applications
-- have seen at least 1 application(s) of the learning algorithms
-- [Kwok & Yeung] CCNN used more than other ANNs in regression
-* chart: publications by year
-[[file:CCNN-publication-history-chart.png]]
+- Very susceptible to overfitting
