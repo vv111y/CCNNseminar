@@ -34,21 +34,21 @@
 \section{Theoretical Background}
 \label{sec:orgeb84d66}
 \subsection{Overview}
+\begin{frame}{Overview}
 \label{sec:org9345558}
 \begin{itemize}
-\item Feed-forward, supervised learning
-\item Uses backpropagation algorithms
-\item coNN - constructive neural network
-\begin{itemize}
-\item 2 main categories:
+\item Feed-forward, supervised learning algorithm
+\item coNN - constructive neural networks. Two main categories:
 \begin{itemize}
 \item evolutionary based (what is done at Brock)
 \item generally constructive. CCNN is main exemplar of this group
 \end{itemize}
 \end{itemize}
-\end{itemize}
+\end{frame}
+
 \subsection{Overview II}
 \label{sec:orgb89dcee}
+\begin{frame}{Overview II}
 \begin{itemize}
 \item creates it's own topology starting with minimal network
 \begin{itemize}
@@ -56,13 +56,15 @@
 \end{itemize}
 \item input of nodes code the problem being presented to the network
 \item output of nodes code the network's response to the input problem
-\item typically quickprop is used as the learning rule
+\item Uses backpropagation algorithms. Typically quickprop is used as the learning rule
 \end{itemize}
+\end{frame}
+
 \subsection{Basic Algorithm}
 \label{sec:org9411f56}
 \begin{frame}[label={sec:org2b7dbb6}]{Step 1 Training input weights}
-  A new hidden neuron is added one at a time
-  Instead of a minimum, we find a maximum: the maximum correlation between the candidate output and the residual error of the networks output.
+  - A new hidden neuron is added one at a time. \\
+  - Instead of a minimum, we find a maximum: the maximum correlation between the candidates output and the residual error of the network output.
 
   \begin{enumerate}
   \item generate a population of candidate nodes with randomized input weights
@@ -81,13 +83,13 @@
 	\begin{columns}[t]
 		\begin{column}[t]{0.5\textwidth}
       \small{S is sum over all output units $\mathit{o}$ of correlation with error}
-      $$ S = \sum_{o} \lvert \sum_{p} (V_{p} - V) (E_{p,o} - E_{o}) \rvert $$
+      $$ S = \sum_{o} \lvert \sum_{p} (V_{p} - \overline{V}) (E_{p,o} - \overline{E_{o}}) \rvert $$
      \\  
       \begin{center}
         \begin{tabular}{ll}
           \(\mathit{o}\) & \tiny{network output at which the error is measured} \\
           p & \tiny{the training pattern} \\
-          \(\sigma\) & \tiny{network output} \\
+          % \(\sigma\) & \tiny{network output} \\
           V\(_{\text{p}}\) & \tiny{candidate output for input pattern p}   \\
           E\(_{\text{p,o}}\) & \tiny{network output error for output o, pattern p} \\
           \(\overline{V}\) & \tiny{average of candidate output over all patterns} \\
@@ -117,7 +119,7 @@
           \(\mathit{w_{i}}\) & \tiny{weight to be updated}  \\
           \(\sigma_{o}\) & \tiny{sign of correlation}  \\
           \(\mathit{f_{p}}^{\prime}\) & \tiny{derivative for pattern p of the nodes fn wrt of inputs} \\
-          I\(_{\text{i,p}}\) & \tiny{input node gets from unit i for input p}  \\
+          I\(_{\text{i,p}}\) & \tiny{input candidate gets from unit i for pattern p}  \\
           E\(_{\text{p,o}}\) & \tiny{network output error for output o, pattern p} \\
           \(\overline{E_{o}}\) & \tiny{average of output errors over all patterns} \\
           & \\
