@@ -1,269 +1,13 @@
-* header :ARCHIVE:
 #+startup: beamer
-#+OPTIONS: H:2 toc:t num:t
+#+OPTIONS: H:3 toc:t num:t
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [presentation]
 #+BEAMER_THEME: Bergen
-#+DESCRIPTION: Introduction to Cascade Correlation Neural Networks <2017-02-02 Thu> 
-#+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col) %8BEAMER_OPT
-#+LATEX_HEADER: \usepackage{multimedia}
-#+LATEX_HEADER: \usepackage{amsmath}
-#+LATEX_HEADER: \usepackage{mathtools}
-
-#+TITLE: Introduction to Cascade Correlation Neural Networks 
-#+AUTHOR: Willy Rempel
-#+DATE: February 2, 2017
-
-* [.] 4P80 seminar [1/6]
-SCHEDULED: <2017-01-20 Fri> DEADLINE: <2017-02-02 Thu>
-** [.] pics of growing network
-** [.] split slides for equations with legend
-** [.] pic headlines
-** [?] maybe list of alternative algos based on CCNN
-** [?] couple papers have stepwise description - maybe use for pseudocode
-** Requirements
-- theoritcal background
-- comparison to vanilla backprop
-- practical applications
-After completion of your presentation students should:
-- have a brief historical context into which the algorithms belong
-- understand algos, and why they work 
-- " Pros/Cons of each
-- " Differences between backprop
-- have seen some experimental results to support the above 3 things
-- have seen at least 1 application(s) of the learning algorithms
-** mod Requirements
-- theoritcal background
-  - have a brief historical context into which the algorithms belong
-- comparison to vanilla backprop
-  - " Differences between backprop
-- understand algorithms and why they work
-  - " Pros/Cons of each
-- have seen some experimental results to support: explanation, pro/cons, diff btw 
-- practical applications
-  - have seen at least 1 application(s) of the learning algorithms
-** :ARCHIVE: 
-*** options 
-- Delta-bar-delta and extended delta-bar-delta or
-- Conjugate gradient and at least one variant (ie. Fletcher-Reeves, Polak-Ribiere, Powell Beale Restarts, Scaled Conjugate Gradient)
-- Cascade-Correlation
--
-* snips
-** latex snips
-$$ \frac{\sum_{poo}}{\sum_{poo}^{bah}} \phi = \Omega $$
-
-#+LATEX_HEADER: \usepackage{mathtools}
-  S = \sum_{o} \sum_{p} \left V_{p} - V \right \left E_{p,o} - E_{o} \right
-
-** snip from Adam 
-\begin{frame}{Network Representation}
-\begin{columns}
-    \begin{column}{.45\textwidth}
-      \begin{figure}
-          \centering
-           \textbf{Undirected Graph}\par\medskip
-           \includegraphics[width=0.7\textwidth]{Undirected-Graph.png}
-            \\~\\
-          \begin{blockarray}{ccccc}
-            & 1 & 2 & 3 & 4 \\
-            \begin{block}{c(cccc)}
-              1 & 0 & 1 & 1 & 1  \\
-              2 & 1 & 0 & 0 & 0  \\
-              3 & 1 & 0 & 0 & 0  \\
-              4 & 1 & 0 & 0 & 0  \\
-            \end{block}
-          \end{blockarray}
-      \end{figure}
-    \end{column}
-    \begin{column}{.45\textwidth}
-     \begin{figure}
-          \centering
-           \textbf{Directed Graph}\par\medskip
-           \includegraphics[width=0.7\textwidth]{Directed-Graph.png}
-            \\~\\
-          \begin{blockarray}{ccccc}
-            & 1 & 2 & 3 & 4 \\
-            \begin{block}{c(cccc)}
-              1 & 0 & 1 & 0 & 1  \\
-              2 & 0 & 0 & 0 & 0  \\
-              3 & 1 & 0 & 0 & 0  \\
-              4 & 0 & 0 & 0 & 0  \\
-            \end{block}
-          \end{blockarray}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-** scrap area 
-
-*** input training legend
-| $\mathit{o}$       | network output at which the error is measured   |
-| \rho               | the training pattern                            |
-| \sigma             | network output                                  |
-| V_{p}              | candidate output for input pattern \rho         |
-| E_{p,o}            | network output error for output o, pattern \rho |
-| $\overline{V}$     | average of candidate output over all patterns   |
-| $\overline{E_{o}}$ | average of output errors over all patterns      |
-
-*** output training legend
-** 1st try org to beamer rough notes 
-
-\section{rough notes}
-\label{sec:orgb0e1b95}
-\begin{itemize}
-\item doesn't require backprop? \url{https://en.wikipedia.org/wiki/Types\_of\_artificial\_neural\_networks\#Cascading\_neural\_networks}
-\end{itemize}
-
-\begin{frame}[label={sec:orgc434aa2}]{book}
-  In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm and maybe the second most popular is the DNC...
-  The popularity of Cascade Correlation can be attested by the various ways this
-  algorithm has inspired new variations and also has been used in the combined
-  approaches between learning methods. [Franco et al, 2009] 
-\end{frame}
-\begin{frame}[label={sec:org558d821}]{other}
-  \begin{block}{other slides}
-    \begin{itemize}
-    \item input units code the problem being presented to the network
-    \item output units code the network's response to the input problem
-    \end{itemize}
-  \end{block}
-  \begin{block}{shultz slides}
-    \begin{itemize}
-    \item 'when error stagnates a hidden unit is recruited'
-    \item correlation slide shows normalizing denominator. Not in original paper.
-    \item states same quickprop algo used for both correlation maximization and error minimization
-    \item the added randomized output weights are opposite sign of neurons correlation with network error --true?
-    \begin{itemize}
-    \item confirmed in \url{http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html} tutorial
-    \end{itemize}
-    \item aside: he has 2nd tutorial on encoder option for CCNNs. Later.
-    \end{itemize}
-  \end{block}
-  \begin{block}{types of CCNNs}
-    \begin{itemize}
-    \item PCC pruned CCNN
-    \item RCC recurrent CCNN
-    \end{itemize}
-  \end{block}
-\end{frame}
-\begin{frame}[label={sec:orgdf727b8}]{things to say}
-  \begin{itemize}
-  \item why did CCann fall out? what happened since inception?
-  \item current uses
-  \item for practical uses, would like pictures of the headings of papers to show what some researches have to say
-  \item 2 main problems of backprop :
-  \begin{itemize}
-  \item step size problem
-  \item moving target problem
-  \end{itemize}
-  \item original paper acknowledges vanishing gradient problem
-  \item original paper citation count 3716
-  \item creates it's own topology starting with minimal network
-  \begin{itemize}
-  \item input and output layers only, as usual connected by weights.
-  \end{itemize}
-  \item opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
-  \begin{itemize}
-  \item in a class called Dynamic Node Creation, DNC \ldots{} change this
-  \end{itemize}
-  \item a 'multi layered perceptron'
-  \item S Fahlman did RCC - recurrent CCNN same year '90
-  \end{itemize}
-\end{frame}
-* research 
-- [balazs] describes two categories for constructive methods:
-  - evolutionary methods (what is mostly done at Brock)
-  - other methods exemplified by Cascade Correlation 
-  - describes overall field.
-- S Fahlman did RCC - recurrent CCNN same year '90
-** Kwok, Yeung 1995 
-empty
-** Kwok, Yeung 1997
-empty
-** Sharma et al  
-The adaptive structure neural networks framework is a collection of a group of techniques in which network structure is adapted during the training according to a given problem. The network structure adaptation may be applicable to three levels namely, architecture adaptation, functional adaptation and training parameters adaptation. These approaches can be classified into two different groups: evolutionary and non-evolutionary.
-
-Many evolutionary algorithms have been proposed that evolve the network architecture together with weights based on global optimization techniques, like genetic algorithms, genetic programming and evolutionary strategies [3], [4]. The global search methods like ant colony optimization and particle swarm optimization are widely used nowadays to determine optimum architecture during the learning [5], [6]. However, the evolutionary approach is quite demanding in both time and user–defined parameters [7].
-
-*** Six motivations for using constructive algorithms are listed with explanations in [Parekh et al., 2000]. These are:
-
-(1) Flexibility of exploring the space of neural network topologies
-(2) Potential for matching the intrinsic complexity of the learning task
-(3) Estimation of expected case complexity of the learning task
-(4) Tradeoffs among performance measures
-(5) Incorporation of prior knowledge
-(6) Lifelong learning.
-
-*** Constructive algorithms have the following major advantages over the pruning algorithms:
-
-(1) It is relatively easier to specify an initial network architecture in constructive algorithms, whereas in pruning algorithms one usually does not know a priori how large the initial network should be. Therefore, an initial network that is much larger than actually required by the underlying problem is usually chosen in pruning algorithms, leading to a computational expensive network training process.
-
-(2) Constructive algorithms tend to build small networks due to their incremental learning nature. Networks are constructed that correspond to the complexity of the given problem, while overly large efforts may be spent in pruning the redundant weights and hidden nodes contained in the network in pruning algorithms. Thus, constructive algorithms are generally more economical (in terms of training time and network complexity/structure) than pruning algorithms.
-
-(3) In constructive algorithms, a smaller number of parameters (weights) is to be updated in the initial stage of the training process thus requiring less training data for good generalization, while a sufficiently large training data is required in pruning algorithms.
-
-(4) One common feature in constructive algorithms is to assume that the hidden nodes already installed in the network are useful in modeling part of the underlying function. In such case, the weights feeding into these installed nodes can be frozen to avoid moving target problem. The number of weights to be optimized at a time is reduced, so that time and memory requirements are decreased.
-
-(5) In pruning algorithms and regularization methods, several problem dependant parameters need to be properly specified or selected in order to obtain an acceptable network yielding satisfactory performance. This requirement makes these algorithms more difficult to be used in real life applications.
-
-** Khatter et al  
-constructive methods:
-Further, it has been shown that at least in principle, algorithms that are allowed to add neurons and weights represent a class of universal learners [37]. Constructive algorithms search for small solutions first and thus offer a potential for discovering a near minimal network that suitably matches the complexity of the learning task. Smaller networks are also preferred because of their potential for more efficient hardware implementation and greater transparency in extracting the learned knowledge [38].
-
-constructive methods2:
-Many constructive neural network algorithms have been surveyed by many authors but the most popular out of them is Cascade Correlation algorithm [43].
-
-Cascade Correlation NN Cascade correlation is a powerful method of training neural networks. Cascade Correlation starts with a minimal network in which new hidden units are trained and added one by one. Cascade-Correlation consists of two steps. Cascade architecture is the first step in which hidden units are added one at a time to the network. They do not change after they are added. Learning algorithm is the second step in which new hidden units are created and installed. We try to maximize the magnitude of correlation between the new unit output and residual error signal [44].
-
-In this there are some inputs and one or more output units with no hidden units. Each input unit is connected to each output unit with a connection whose weight can be adjusted. Bias input is set to 1 permanently. Hidden units are added one by one to the network and each unit receives a connection from original inputs of the network and also from pre-existing hidden unit. When the units are added to the network, the weights of hidden units are frozen .Output units are repeatedly trained. A new one unit layer is added to the network when new unit is added. This is done until some of the incoming weights are zero. In a single layer network we can use Delta rule or Windrow- hoff with no need to back propogate through hidden units. Quickprop algorithm can be used to train output weights. New hidden unit is added to the network and the input weights are frozen and the output weights are frozen and all the output weights are trained once. This is repeated until error is small.Whenthe weights in the output layer are trained the other weights in the active network are frozen. When the candidate weights are trained none of the weights in the active network are changed. In a machine with plenty of memory, it is possible to record the unit-values and the output errors for an entire epoch, and then to use these cached values repeatedly during training, rather than recomputing them for each training case. This can result in a tremendous speedup, especially for large networks.
-*** variants
-- Recurrent CBP
-- Casper
-- Adaptive slope sigmoidal function
-** book 
-In spite of the many CoNN algorithms surveyed in (Kwok & Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm (CasCor) and maybe the second most popular is the DNC. While the DNC algorithm constructs neural networks with a single hidden layer, the CasCor creates them with multiple hidden layers, where each hidden layer has one hidden neuron. The popularity of CasCor can be attested by the various ways this algorithm has inspired new variations and also has been used in the combined approaches between learning methods. p15.
-
-** SE post  
-http://math.stackexchange.com/questions/2057027/cascade-neural-networks
-One disadvantage is that it is much harder to implement than a standard multilayer Perceptron. Another disadvantage is that this is for "standard" feed forward networks, but not for CNNs / RNNs.
-
-One architecture which is closely related to the cascade part and is for CNNs are the recently developed Dense Nets: https://arxiv.org/abs/1608.06993
-
-I am pretty sure DenseNets will be wide-spread quite soon
-** small tutorial 
-http://www.cs.cornell.edu/boom/2004sp/projectarch/appofneuralnetworkcrystallography/NeuralNetworkCascadeCorrelation.htm
-mentions 8 candidate neurons typical.small
-** brock 
-more results: 1,043, 841 scholarly, 84 in title
-http://eds.a.ebscohost.com/eds/results?sid=57f339d7-ad15-47dd-95a8-ce7523f72217%40sessionmgr4006&vid=0&hid=4108&bquery=(cascade+AND+correlation+AND+network)&bdata=JnR5cGU9MCZzaXRlPWVkcy1saXZlJnNjb3BlPXNpdGU%3d
-** other 
-*** other slides :ARCHIVE:
-- input units code the problem being presented to the network
-- output units code the network's response to the input problem
-*** shultz slides
-- 'when error stagnates a hidden unit is recruited'
-- correlation slide shows normalizing denominator. Not in original paper.
-- states same quickprop algo used for both correlation maximization and error minimization
-- the added randomized output weights are opposite sign of neurons correlation with network error --true?
-  - confirmed in http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html tutorial
-- aside: he has 2nd tutorial on encoder option for CCNNs. Later.
-*** types of CCNNs 
-- PCC pruned CCNN 
-- RCC recurrent CCNN
-** chart: publications by year
-[[file:CCNN-publication-history-chart.png]]
-* things to say
-- original paper acknowledges vanishing gradient problem
-- original paper citation count 3716
-- opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
-- S Fahlma did RCC - recurrent CCNN same year '90
-
 * Theoretical Background
 ** Overview 
 - Feed-forward, supervised learning
 - Uses backpropagation algorithms
-- coNN, constructive neural network
+- coNN - constructive neural network
   - 2 main categories:
     - evolutionary based (what is done at Brock)
     - generally constructive. CCNN is main exemplar of this group
@@ -277,7 +21,6 @@ http://eds.a.ebscohost.com/eds/results?sid=57f339d7-ad15-47dd-95a8-ce7523f72217%
 *** Step 1 Training input weights
 A new hidden neuron is added one at a time
 Instead of a minimum, we find a maximum: the maximum correlation between the candidate output and the residual error of the networks output.
-
  
 1. generate a population of candidate nodes with randomized input weights 
 2. inputs are connected, but not outputs
@@ -285,7 +28,6 @@ Instead of a minimum, we find a maximum: the maximum correlation between the can
    1. one epoch of the training data is run through 
    2. update input weights using any learning rule, such that correlation is increased
 4. candidate with highest correlation is put in the network, others are discarded.
-
 
 - correlation sign doesn't matter, only magnitude
 - the bias unit effectively implements a learnable resting activation level for each hidden and output unit.
@@ -296,9 +38,9 @@ Instead of a minimum, we find a maximum: the maximum correlation between the can
 2. input weights are fixed
 3. only output weights are trained using any learning rule, until no improvement in error reduction
 
-
 - once done the new node is fixed permanently.
 - any new training involves adding another new node on it's own downstream layer
+* Comparisons 
 ** Two Problems with Backpropagation
 *** The Step Size Problem
 - vanilla backpropagation requires small steps for convergence - slow
@@ -323,11 +65,10 @@ Pros
   
 Cons
 - Very susceptible to overfitting
-** Applications
+
+* Applications
+** Popularity
   In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm and maybe the second most popular is the DNC...
   The popularity of Cascade Correlation can be attested by the various ways this
   algorithm has inspired new variations and also has been used in the combined
   approaches between learning methods. [Franco et al, 2009] 
-*** types of CCNNs 
-- PCC pruned CCNN 
-- RCC recurrent CCNN
