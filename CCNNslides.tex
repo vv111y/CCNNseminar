@@ -22,7 +22,7 @@
 \subsection{Theoretical Background}
 
 \begin{frame}
-  \frametitle{Train input weight - correlation}
+  \frametitle{Train input weights - correlation}
 	\begin{columns}[t]
 		\begin{column}[t]{0.5\textwidth}
       \small{S is sum over all output units $\mathit{o}$ of correlation with error}
@@ -30,11 +30,11 @@
      \\  
       \begin{center}
         \begin{tabular}{ll}
-          \(\mathit{o}\) & \tiny{network output at which the error is measured}\\
-          \(\rho\) & \tiny{the training pattern}\\
+          \(\mathit{o}\) & \tiny{network output at which the error is measured} \\
+          p & \tiny{the training pattern} \\
           \(\sigma\) & \tiny{network output} \\
-          V\(_{\text{p}}\) & \tiny{candidate output for input pattern} \(\rho\)\\
-          E\(_{\text{p,o}}\) & \tiny{network output error for output o, pattern} \(\rho\)\\
+          V\(_{\text{p}}\) & \tiny{candidate output for input pattern p}   \\
+          E\(_{\text{p,o}}\) & \tiny{network output error for output o, pattern p} \\
           \(\overline{V}\) & \tiny{average of candidate output over all patterns} \\
           \(\overline{E_{o}}\) & \tiny{average of output errors over all patterns} \\
         \end{tabular}
@@ -59,10 +59,12 @@
      \\ 
       \begin{center}
         \begin{tabular}{ll}
-          \(\mathit{o}\) & network output at which the error is measured\\
-          \(\rho\) & the training pattern\\
-          \(\overline{V}\) & average of candidate unit output over all patterns\\
-          \(\overline{E_{o}}\) & average of output errors over all patterns\\
+          \(\mathit{w_{i}}\) & \tiny{weight to be updated}  \\
+          \(\sigma_{o}\) & \tiny{sign of correlation}  \\
+          \(\mathit{f_{p}}^{\prime}\) & \tiny{derivative for pattern p of the nodes fn wrt of inputs} \\
+          I\(_{\text{i,p}}\) & \tiny{input node gets from unit i for input p}  \\
+          E\(_{\text{p,o}}\) & \tiny{network output error for output o, pattern p} \\
+          \(\overline{E_{o}}\) & \tiny{average of output errors over all patterns} \\
           & \\
         \end{tabular}
       \end{center}
@@ -79,68 +81,6 @@
 
 
 
-\section{rough notes}
-\label{sec:orgb0e1b95}
-\begin{itemize}
-\item doesn't require backprop? \url{https://en.wikipedia.org/wiki/Types\_of\_artificial\_neural\_networks\#Cascading\_neural\_networks}
-\end{itemize}
-
-\begin{frame}[label={sec:orgc434aa2}]{book}
-  In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm and maybe the second most popular is the DNC...
-  The popularity of Cascade Correlation can be attested by the various ways this
-  algorithm has inspired new variations and also has been used in the combined
-  approaches between learning methods. [Franco et al, 2009] 
-\end{frame}
-\begin{frame}[label={sec:org558d821}]{other}
-  \begin{block}{other slides}
-    \begin{itemize}
-    \item input units code the problem being presented to the network
-    \item output units code the network's response to the input problem
-    \end{itemize}
-  \end{block}
-  \begin{block}{shultz slides}
-    \begin{itemize}
-    \item 'when error stagnates a hidden unit is recruited'
-    \item correlation slide shows normalizing denominator. Not in original paper.
-    \item states same quickprop algo used for both correlation maximization and error minimization
-    \item the added randomized output weights are opposite sign of neurons correlation with network error --true?
-    \begin{itemize}
-    \item confirmed in \url{http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html} tutorial
-    \end{itemize}
-    \item aside: he has 2nd tutorial on encoder option for CCNNs. Later.
-    \end{itemize}
-  \end{block}
-  \begin{block}{types of CCNNs}
-    \begin{itemize}
-    \item PCC pruned CCNN
-    \item RCC recurrent CCNN
-    \end{itemize}
-  \end{block}
-\end{frame}
-\begin{frame}[label={sec:orgdf727b8}]{things to say}
-  \begin{itemize}
-  \item why did CCann fall out? what happened since inception?
-  \item current uses
-  \item for practical uses, would like pictures of the headings of papers to show what some researches have to say
-  \item 2 main problems of backprop :
-  \begin{itemize}
-  \item step size problem
-  \item moving target problem
-  \end{itemize}
-  \item original paper acknowledges vanishing gradient problem
-  \item original paper citation count 3716
-  \item creates it's own topology starting with minimal network
-  \begin{itemize}
-  \item input and output layers only, as usual connected by weights.
-  \end{itemize}
-  \item opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
-  \begin{itemize}
-  \item in a class called Dynamic Node Creation, DNC \ldots{} change this
-  \end{itemize}
-  \item a 'multi layered perceptron'
-  \item S Fahlman did RCC - recurrent CCNN same year '90
-  \end{itemize}
-\end{frame}
 
   % \nocite{*}
 

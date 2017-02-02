@@ -14,13 +14,11 @@
 #+AUTHOR: Willy Rempel
 #+DATE: February 2, 2017
 
-* [.] 4P80 seminar [0/6]
+* [.] 4P80 seminar [1/6]
 SCHEDULED: <2017-01-20 Fri> DEADLINE: <2017-02-02 Thu>
-** [.] organize 2 textblob slides
 ** [.] pics of growing network
-** [.] pic headlines
 ** [.] split slides for equations with legend
-*** [.] make legend
+** [.] pic headlines
 ** [?] maybe list of alternative algos based on CCNN
 ** [?] couple papers have stepwise description - maybe use for pseudocode
 ** Requirements
@@ -108,7 +106,71 @@ $$ \frac{\sum_{poo}}{\sum_{poo}^{bah}} \phi = \Omega $$
 | $\overline{V}$     | average of candidate output over all patterns   |
 | $\overline{E_{o}}$ | average of output errors over all patterns      |
 
-*** output training legend 
+*** output training legend
+** 1st try org to beamer rough notes 
+
+\section{rough notes}
+\label{sec:orgb0e1b95}
+\begin{itemize}
+\item doesn't require backprop? \url{https://en.wikipedia.org/wiki/Types\_of\_artificial\_neural\_networks\#Cascading\_neural\_networks}
+\end{itemize}
+
+\begin{frame}[label={sec:orgc434aa2}]{book}
+  In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm and maybe the second most popular is the DNC...
+  The popularity of Cascade Correlation can be attested by the various ways this
+  algorithm has inspired new variations and also has been used in the combined
+  approaches between learning methods. [Franco et al, 2009] 
+\end{frame}
+\begin{frame}[label={sec:org558d821}]{other}
+  \begin{block}{other slides}
+    \begin{itemize}
+    \item input units code the problem being presented to the network
+    \item output units code the network's response to the input problem
+    \end{itemize}
+  \end{block}
+  \begin{block}{shultz slides}
+    \begin{itemize}
+    \item 'when error stagnates a hidden unit is recruited'
+    \item correlation slide shows normalizing denominator. Not in original paper.
+    \item states same quickprop algo used for both correlation maximization and error minimization
+    \item the added randomized output weights are opposite sign of neurons correlation with network error --true?
+    \begin{itemize}
+    \item confirmed in \url{http://www.ra.cs.uni-tuebingen.de/SNNS/UserManual/node167.html} tutorial
+    \end{itemize}
+    \item aside: he has 2nd tutorial on encoder option for CCNNs. Later.
+    \end{itemize}
+  \end{block}
+  \begin{block}{types of CCNNs}
+    \begin{itemize}
+    \item PCC pruned CCNN
+    \item RCC recurrent CCNN
+    \end{itemize}
+  \end{block}
+\end{frame}
+\begin{frame}[label={sec:orgdf727b8}]{things to say}
+  \begin{itemize}
+  \item why did CCann fall out? what happened since inception?
+  \item current uses
+  \item for practical uses, would like pictures of the headings of papers to show what some researches have to say
+  \item 2 main problems of backprop :
+  \begin{itemize}
+  \item step size problem
+  \item moving target problem
+  \end{itemize}
+  \item original paper acknowledges vanishing gradient problem
+  \item original paper citation count 3716
+  \item creates it's own topology starting with minimal network
+  \begin{itemize}
+  \item input and output layers only, as usual connected by weights.
+  \end{itemize}
+  \item opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
+  \begin{itemize}
+  \item in a class called Dynamic Node Creation, DNC \ldots{} change this
+  \end{itemize}
+  \item a 'multi layered perceptron'
+  \item S Fahlman did RCC - recurrent CCNN same year '90
+  \end{itemize}
+\end{frame}
 * research 
 - [balazs] describes two categories for constructive methods:
   - evolutionary methods (what is mostly done at Brock)
@@ -192,24 +254,28 @@ http://eds.a.ebscohost.com/eds/results?sid=57f339d7-ad15-47dd-95a8-ce7523f72217%
 ** chart: publications by year
 [[file:CCNN-publication-history-chart.png]]
 * things to say
-- for practical uses, would like pictures of the headings of papers to show what some researches have to say
 - original paper acknowledges vanishing gradient problem
 - original paper citation count 3716
-- creates it's own topology starting with minimal network
-  - input and output layers only, as usual connected by weights.
 - opposite of DNNs, they start big and stay big. CCNN start small and grows with training.
+- S Fahlma did RCC - recurrent CCNN same year '90
 
 * Theoretical Background
-** CCNN in a nutshell 
+** Overview 
 - Feed-forward, supervised learning
 - Uses backpropagation algorithms
 - coNN, constructive neural network
   - 2 main categories:
     - evolutionary based (what is done at Brock)
     - generally constructive. CCNN is main exemplar of this group
+** Overview II   
+- creates it's own topology starting with minimal network
+  - input and output layers only, as usual connected by weights.
+- input of nodes code the problem being presented to the network
+- output of nodes code the network's response to the input problem
+- typically quickprop is used as the learning rule
 ** Basic Algorithm  
 *** Step 1 Training input weights
-A new hidden neuron is added at one time
+A new hidden neuron is added one at a time
 Instead of a minimum, we find a maximum: the maximum correlation between the candidate output and the residual error of the networks output.
 
  
@@ -217,7 +283,7 @@ Instead of a minimum, we find a maximum: the maximum correlation between the can
 2. inputs are connected, but not outputs
 3. repeat training steps until no correlation improvement
    1. one epoch of the training data is run through 
-   2. update input weights using any learning rule
+   2. update input weights using any learning rule, such that correlation is increased
 4. candidate with highest correlation is put in the network, others are discarded.
 
 
@@ -231,7 +297,7 @@ Instead of a minimum, we find a maximum: the maximum correlation between the can
 3. only output weights are trained using any learning rule, until no improvement in error reduction
 
 
-- once done the new node is fixed perminently.
+- once done the new node is fixed permanently.
 - any new training involves adding another new node on it's own downstream layer
 ** Two Problems with Backpropagation
 *** The Step Size Problem
@@ -257,3 +323,11 @@ Pros
   
 Cons
 - Very susceptible to overfitting
+** Applications
+  In spite of the many CoNN algorithms surveyed in (Kwok \& Yeung, 1997a), the most popular for regression problems is no doubt the Cascade Correlation algorithm and maybe the second most popular is the DNC...
+  The popularity of Cascade Correlation can be attested by the various ways this
+  algorithm has inspired new variations and also has been used in the combined
+  approaches between learning methods. [Franco et al, 2009] 
+*** types of CCNNs 
+- PCC pruned CCNN 
+- RCC recurrent CCNN
