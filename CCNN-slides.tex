@@ -67,7 +67,8 @@
   - Instead of a minimum, we find a maximum: the maximum correlation between the candidates output and the residual error of the network output.
 
   \begin{enumerate}
-  \item generate a population of candidate nodes with randomized input weights
+  \item generate a population of candidate nodes with randomized input weights.
+    (circa 1990 recommendation of 8)
   \item inputs are connected, but not outputs
   \item repeat training steps until no correlation improvement
   \begin{enumerate}
@@ -82,7 +83,9 @@
   \frametitle{Train input weights - correlation}
 	\begin{columns}[t]
 		\begin{column}[t]{0.5\textwidth}
-      \small{S is sum over all output units $\mathit{o}$ of correlation with error}
+      Goal: Maximize S. Sum over all output units $\mathit{o}$ of the
+        magnitude of correlation between node output V and the error of given
+        output node.
       $$ S = \sum_{o} \lvert \sum_{p} (V_{p} - \overline{V}) (E_{p,o} - \overline{E_{o}}) \rvert $$
      \\  
       \begin{center}
@@ -140,26 +143,26 @@
 
 \begin{frame}{Step 1 Training input weights}
   \begin{itemize}
-    \item candidate with highest correlation is put in the network, others are discarded.
-    \item correlation sign doesn't matter, only magnitude
-    \item the bias unit effectively implements a learnable resting activation level for each hidden and output unit.
-    \item subsequent hidden neurons are attached to previous hidden neurons - this is where the cascade term comes from.
+    \item Candidate with highest correlation is put in the network, others are discarded.
+    \item Correlation sign doesn't matter, only magnitude
+    \item The bias unit effectively implements a learnable resting activation level for each hidden and output unit.
+    \item Subsequent hidden neurons are attached to previous hidden neurons - this is where the cascade term comes from.
   \end{itemize}
 \end{frame}
 
 \begin{frame}[label={sec:org085d5cb}]{Step 2 Training output weights}
 \begin{enumerate}
-\item connect output of new node to output layer nodes
-use randomized weights that have adjusted sign to reduce error
-\item input weights are fixed
-\item only output weights are trained using any learning rule, until no improvement in error reduction
-
-\item once done the new node is fixed permanently.
-\item any new training involves adding another new node on it's own downstream layer
+  \item Connect output of new node to output layer nodes.
+  Use randomized weights that have adjusted sign to reduce error
+  \item Input weights are fixed
+  \item Only output weights are trained using any learning rule, until no improvement in error reduction
+  \item Once done the new node is fixed permanently.
+  \item Any new training involves adding another new node on it's own downstream layer
+  % \item the sign of the output weight 
 \end{enumerate}
-\begin{center}
-\includegraphics[scale=0.20]{trainoutputunit.png}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.20]{trainoutputunit.png}
+  \end{center}
 \end{frame}
 
 \section{Comparisons}
@@ -168,21 +171,21 @@ use randomized weights that have adjusted sign to reduce error
 \label{sec:org168fc30}
 \begin{frame}[label={sec:org200ccae}]{The Step Size Problem}
 \begin{itemize}
-\item vanilla backpropagation requires small steps for convergence - slow
-\item we do not have the information to pick an optimal learning rate, manually selected
+\item Vanilla backpropagation requires small steps for convergence - slow
+\item We do not have the information to pick an optimal learning rate, manually selected
 \end{itemize}
 \end{frame}
 \begin{frame}[label={sec:orgde08e3c}]{The Moving Target Problem}
 \begin{itemize}
-\item complication when many factors changing at the same time
-\item error signal defines problem unit trying to solve, but this keeps changing
-\item dramatic slowdown of training with increasing number of hidden layers
-\item herd effect:
+\item Complication when many factors changing at the same time
+\item Error signal defines problem unit trying to solve, but this keeps changing
+\item Dramatic slowdown of training with increasing number of hidden layers
+\item Herd effect:
 \begin{itemize}
 \item 2 tasks A, B. If A has bigger effect, all nodes redundantly train for A, ignoring B
 \item But when all nodes move toward B at once, problem A response becomes worse.
-\item eventually nodes split to train for separate problems A and B, but it takes a long time
-\item a randomly initialized network prevents nodes from behaving identically, but this tends to dissipate as the network is trained
+\item Eventually nodes split to train for separate problems A and B, but it takes a long time
+\item A randomly initialized network prevents nodes from behaving identically, but this tends to dissipate as the network is trained
 \end{itemize}
 \item One way to combat: allow only a few weights to change while keeping the others constant
 \end{itemize}
@@ -196,7 +199,7 @@ use randomized weights that have adjusted sign to reduce error
 \includegraphics[scale=0.2]{performanceChart2.png}
 \item The network determines its own size and topologies
 \item Incremental/life long learning: new training, new information can be added, with an already trained network
-\item effectively deals with the step size and moving target problems
+\item Effectively deals with the step size and moving target problems
 \end{itemize}
 }
 \frame{
@@ -219,6 +222,12 @@ approaches between learning methods. [Franco et al, 2009]
 
 }
 
+    {
+    \usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{headline4.png}}
+    \setbeamertemplate{navigation symbols}{}
+    \begin{frame}[plain]
+    \end{frame}
+    }
 
 \begin{frame}[allowframebreaks, t]{References}
   \tiny
